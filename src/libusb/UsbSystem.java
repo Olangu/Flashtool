@@ -27,8 +27,12 @@ public class UsbSystem {
 	    //LibUsbLibrary.libUsb.libusb_set_debug(this.context, 4);
     }
     catch (UnsatisfiedLinkError e) {
-		System.out.println("Libusb not found. Minimum libusb version is 1.0.14");
-		System.out.println("It can be downloaded on http://www.libusbx.org");
+		if(e.getMessage().matches(".*cannot open shared object file.*")){ 
+	    	System.out.println("Libusb not found. Minimum libusb version is 1.0.14");
+			System.out.println("It can be downloaded on http://www.libusbx.org");
+		} else {
+			System.out.println(e.getLocalizedMessage());
+		}
 		System.exit(1);
     }
 	try {
